@@ -1,0 +1,27 @@
+{
+  "name": "vodavrozlive-telegrambot",
+  "version": "1.0.0",
+  "description": "TELEGRAM-bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AVShatokhin/vodavrozlive-telegramBot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot"
+  ],
+  "author": "Andrey V.Shatokhin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AVShatokhin/vodavrozlive-telegramBot/issues"
+  },
+  "homepage": "https://github.com/AVShatokhin/vodavrozlive-telegramBot#readme",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "telegraf": "^4.12.2"
+  }
+}

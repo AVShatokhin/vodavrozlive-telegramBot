@@ -1,0 +1,33 @@
+module.exports = (config) => {
+  return {
+    BOT_getAllUsers: `SELECT uid, email, roles, blocked, confirmed, extended from ${config.db_prefix}_users`,
+    BOT_getApvByEng: `SELECT krug.title as krugName, sn, cmdProfile, address, activeKrug, tgLink, snEQ, cost, phone, version, linkState, oper, apv.lts as lts from apv, krug, brig where apv.activeKrug=krug.krug_id and brig.brig_id=krug.brig_id and JSON_CONTAINS(brig.brigMembers, ?) and krug.krug_id=?`,
+    BOT_getKrugByEng: `SELECT krug.title as krugName, krug_id from krug, brig where brig.brig_id=krug.brig_id and JSON_CONTAINS(brig.brigMembers, ?)`,
+
+    // Login: `SELECT uid, email, roles, blocked, confirmed, extended from ${config.db_prefix}_users where email=? and pass_hash=md5(?)`,
+    // Register: `INSERT into ${config.db_prefix}_users set roles='["${config.default_user_role}"]', email=?, pass_hash=md5(?), extended=?`,
+    // Confirm: `UPDATE ${config.db_prefix}_users, ${config.db_prefix}_tokens set confirmed=true where ${config.db_prefix}_users.uid=${config.db_prefix}_tokens.uid and token=?`,
+    // Recover: `SELECT uid from ${config.db_prefix}_users where email=?`,
+    // setPassword: `UPDATE ${config.db_prefix}_users set pass_hash=md5(?) where uid=?`,
+    // changePassword: `UPDATE ${config.db_prefix}_users set pass_hash=md5(?) where pass_hash=md5(?) and uid=?`,
+    // AddToken: `INSERT into ${config.db_prefix}_tokens set uid=?, token=?`,
+    // deleteToken: `DELETE from ${config.db_prefix}_tokens where token=?`,
+    // sessionGetUserByToken: `SELECT ${config.db_prefix}_users.uid, email, roles, blocked, confirmed, extended, token from ${config.db_prefix}_users, ${config.db_prefix}_tokens where token=? and ${config.db_prefix}_users.uid=${config.db_prefix}_tokens.uid`,
+    // saveProfile: `UPDATE ${config.db_prefix}_users, ${config.db_prefix}_tokens set extended=? where ${config.db_prefix}_users.uid=${config.db_prefix}_tokens.uid and token=?`,
+    // getUsers: `SELECT uid, email, roles, blocked, confirmed, extended from ${config.db_prefix}_users WHERE email like CONCAT('%',?,'%') or extended like CONCAT('%',?,'%') order by uid LIMIT ?, ?`,
+    // getUsersCount: `SELECT count(*) as queryLength from ${config.db_prefix}_users WHERE email LIKE CONCAT('%',?,'%') or extended like CONCAT('%',?,'%')`,
+    // adminAddUser: `INSERT into ${config.db_prefix}_users set roles='["${config.default_user_role}"]', email=?, pass_hash=md5(?), extended=?`,
+    // adminUpdateUserInfo: `UPDATE ${config.db_prefix}_users, ${config.db_prefix}_tokens set email=?, extended=? where ${config.db_prefix}_users.uid=?`,
+    // adminDeleteUser: `DELETE FROM ${config.db_prefix}_users where ${config.db_prefix}_users.uid=?`,
+    // adminUpdateUserPassword: `UPDATE ${config.db_prefix}_users set pass_hash=md5(?) where uid=?`,
+    // adminConfirmEmail: `UPDATE ${config.db_prefix}_users set confirmed=true where uid=?`,
+    // adminResetConfirmEmail: `UPDATE ${config.db_prefix}_users set confirmed=false where uid=?`,
+    // adminBlockUser: `UPDATE ${config.db_prefix}_users set blocked=true where uid=?`,
+    // adminUnBlockUser: `UPDATE ${config.db_prefix}_users set blocked=false where uid=?`,
+    // adminGetSessions: `SELECT uid, count(*) as sessions FROM ${config.db_prefix}_tokens GROUP BY uid`,
+    // adminCloseAllSessions: `DELETE FROM ${config.db_prefix}_tokens WHERE uid=?`,
+    // adminGetSessionsCountByUID: `SELECT count(*) as sessions FROM ${config.db_prefix}_tokens WHERE uid=?`,
+    // adminApplyNewRoles: `UPDATE ${config.db_prefix}_users, ${config.db_prefix}_tokens set roles=? where ${config.db_prefix}_users.uid=?`,
+    // getEmailByUID: `SELECT email FROM ${config.db_prefix}_users WHERE uid=?`,
+  };
+};
