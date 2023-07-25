@@ -6,9 +6,11 @@ module.exports = async (mysql, ctx) => {
       result.forEach((user) => {
         let __extended = JSON.parse(user.extended);
         if (__extended.phone == ctx.from.id) {
+          __userData = user;
           __userData.authed = true;
-          __userData.email = user.email;
-          __userData.uid = user.uid;
+          __userData.bot = true;
+          __userData.extended = JSON.parse(__userData.extended);
+          __userData.roles = JSON.parse(__userData.roles);
         }
       });
     },

@@ -56,7 +56,7 @@ bot.on("callback_query", async (ctx) => {
 
     case "cmd_conf":
       console.log(__data);
-      renderConfirmed(mysql, ctx, __userData, __data);
+      renderConfirmed(mysql, ctx, __userData, __data, bot);
       break;
 
     default:

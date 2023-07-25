@@ -3,7 +3,8 @@ module.exports = (config) => {
     BOT_getAllUsers: `SELECT uid, email, roles, blocked, confirmed, extended from ${config.db_prefix}_users`,
     BOT_getApvByEng: `SELECT krug.title as krugName, sn, cmdProfile, address, activeKrug, tgLink, snEQ, cost, phone, version, linkState, oper, apv.lts as lts from apv, krug, brig where apv.activeKrug=krug.krug_id and brig.brig_id=krug.brig_id and JSON_CONTAINS(brig.brigMembers, ?) and krug.krug_id=?`,
     BOT_getKrugByEng: `SELECT krug.title as krugName, krug_id from krug, brig where brig.brig_id=krug.brig_id and JSON_CONTAINS(brig.brigMembers, ?)`,
-
+    BOT_setCmdByEng: `UPDATE apv SET cmdProfile=? where sn=?`,
+    BOT_getTGLink: `SELECT tgLink from apv where sn=?`,
     // Login: `SELECT uid, email, roles, blocked, confirmed, extended from ${config.db_prefix}_users where email=? and pass_hash=md5(?)`,
     // Register: `INSERT into ${config.db_prefix}_users set roles='["${config.default_user_role}"]', email=?, pass_hash=md5(?), extended=?`,
     // Confirm: `UPDATE ${config.db_prefix}_users, ${config.db_prefix}_tokens set confirmed=true where ${config.db_prefix}_users.uid=${config.db_prefix}_tokens.uid and token=?`,

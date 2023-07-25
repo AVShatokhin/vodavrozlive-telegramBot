@@ -1,7 +1,9 @@
 const { Markup, Telegraf, button } = require("telegraf");
+const apvButton = require("./apvButton");
 
 module.exports = async (mysql, ctx, userData, data) => {
   // запрос терминалов
+
   let __buttons = [
     [Markup.button.callback("Круги", JSON.stringify({ cmd: "list_krugs" }))],
     [
@@ -16,18 +18,18 @@ module.exports = async (mysql, ctx, userData, data) => {
     .asyncQuery(mysql.SQL_BOT.BOT_getApvByEng, [userData.uid, data.krug_id])
     .then(
       (result) => {
+        let __line = [];
+        let __lineCounter = 0;
         result.forEach((apv) => {
-          __buttons.push([
-            Markup.button.callback(
-              apv.krugName + " : " + apv.sn,
-              JSON.stringify({
-                sn: apv.sn,
-                cmd: "select_apv",
-                krug_id: data.krug_id,
-              })
-            ),
-          ]);
+          __lineCounter++;
+          __line.push(apvButton(apv.sn, data.krug_id));
+          if (__lineCounter == 6) {
+            __buttons.push(Array.from(__line));
+            __line = [];
+            __lineCounter = 0;
+          }
         });
+        if (__lineCounter != 0) __buttons.push(Array.from(__line));
       },
       (err) => {
         console.log(err);

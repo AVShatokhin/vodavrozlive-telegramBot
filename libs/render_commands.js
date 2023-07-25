@@ -1,5 +1,6 @@
 const { Markup, Telegraf, button } = require("telegraf");
 const commands = require("./commands");
+const commandButton = require("./commandButton");
 
 module.exports = async (mysql, ctx, userData, data) => {
   // запрос терминалов
@@ -12,19 +13,35 @@ module.exports = async (mysql, ctx, userData, data) => {
     ],
   ];
 
-  Object.keys(commands).forEach((cmd) => {
-    __buttons.push([
-      Markup.button.callback(
-        commands[cmd],
-        JSON.stringify({
-          cmd: "cmd_dialog",
-          sn: data.sn,
-          code: cmd,
-          krug_id: data.krug_id,
-        })
-      ),
-    ]);
-  });
+  __buttons.push([commandButton("info", data.sn, data.krug_id)]);
+  __buttons.push([commandButton("app:reset", data.sn, data.krug_id)]);
+  __buttons.push([
+    commandButton("app:on", data.sn, data.krug_id),
+    commandButton("app:off", data.sn, data.krug_id),
+  ]);
+  __buttons.push([
+    commandButton("tara:on", data.sn, data.krug_id),
+    commandButton("tara:off", data.sn, data.krug_id),
+  ]);
+  __buttons.push([commandButton("tara:pop", data.sn, data.krug_id)]);
+  __buttons.push([
+    commandButton("temp:on", data.sn, data.krug_id),
+    commandButton("temp:off", data.sn, data.krug_id),
+  ]);
+  __buttons.push([
+    commandButton("kup:on", data.sn, data.krug_id),
+    commandButton("kup:off", data.sn, data.krug_id),
+  ]);
+  __buttons.push([
+    commandButton("mon:on", data.sn, data.krug_id),
+    commandButton("mon:off", data.sn, data.krug_id),
+  ]);
+  __buttons.push([
+    commandButton("rd:on", data.sn, data.krug_id),
+    commandButton("rd:off", data.sn, data.krug_id),
+  ]);
+
+  __buttons.push([commandButton("alarm:off", data.sn, data.krug_id)]);
 
   try {
     await ctx.telegram.editMessageText(
