@@ -40,6 +40,10 @@ module.exports = async (mysql, ctx, userData, data) => {
     commandButton("rd:on", data.sn, data.krug_id),
     commandButton("rd:off", data.sn, data.krug_id),
   ]);
+  __buttons.push([
+    commandButton("san:on", data.sn, data.krug_id),
+    commandButton("san:off", data.sn, data.krug_id),
+  ]);
 
   __buttons.push([commandButton("alarm:off", data.sn, data.krug_id)]);
 
